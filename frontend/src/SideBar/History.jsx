@@ -2,7 +2,9 @@ import React, { useContext, useEffect } from "react";
 import { MyContext } from "../MyContext.jsx";
 import axios from "axios";
 
+
 function History() {
+  const BASE_URL=import.meta.env.VITE_BACKEND_URL;
   const {
     allThreads,
     setAllThreads,
@@ -15,7 +17,7 @@ function History() {
   const getAllThreads = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v1/thread"
+        `${BASE_URL}/api/v1/thread`
       );
 
       const filterData = response.data.map((thread) => ({
@@ -34,7 +36,7 @@ function History() {
 
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/v1/thread/${newThreadId}`
+        `${BASE_URL}/api/v1/thread/${newThreadId}`
       );
 
       setPrevChat(response.data);
@@ -47,7 +49,7 @@ function History() {
   const deleteThread = async(e, threadId) => {
     e.stopPropagation(); // Prevent opening chat
     console.log("Delete Thread:", threadId);
-    const response = await axios.delete(`http://localhost:8080/api/v1/deleteThread/${threadId}`);
+    const response = await axios.delete(`${BASE_URL}/api/v1/deleteThread/${threadId}`);
     console.log(response);
      getAllThreads();
   };

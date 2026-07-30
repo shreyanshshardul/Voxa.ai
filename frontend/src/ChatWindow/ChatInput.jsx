@@ -2,7 +2,9 @@ import React, { useContext, useRef } from "react";
 import axios from "axios";
 import { MyContext } from "../MyContext.jsx";
 
+
 function ChatInput() {
+  const BASE_URL=import.meta.env.VITE_BACKEND_URL;
   const {
     prompt,
     setPrompt,
@@ -39,7 +41,7 @@ function ChatInput() {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/v1/chat",
+        `${BASE_URL}/api/v1/chat`,
         {
           message: userPrompt,
           threadId: currThread,
